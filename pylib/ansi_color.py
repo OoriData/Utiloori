@@ -4,11 +4,13 @@
 
 def ansi_color(text: str, font_color: str = 'red', bg_color: str | None = None) -> str:
     '''
-    ANSI colors: black, red, green, yellow, blue, purple, cyan, white
-
     Wraps text in ANSI color codes (and terminators) for printing colored text to console
 
-    usage: ansi_color('red text on a blue background', 'red', 'blue')
+    ANSI colors: black, red, green, yellow, blue, purple, cyan, white
+
+    usage:
+        ansi_color('green text', 'green')
+        ansi_color('red text on a blue background', 'red', 'blue')
     '''
     font_color = font_color.lower()
     bg_color = bg_color.lower() if bg_color else None

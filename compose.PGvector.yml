@@ -1,6 +1,4 @@
-# SPDX-FileCopyrightText: 2023-present Oori Data <info@oori.dev>
-# SPDX-License-Identifier: UNLICENSED
-# oorichat/compose.sofolaPGv.yml
+# compose.sofolaPGv.yml
 
 # Use postgres/example user/password credentials
 version: '3.1'
