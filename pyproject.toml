@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "Utiloori"
+name = "utiloori"
 dynamic = ["version"]
 description = "Oori's generic python toolkit. Nothing much to see here"
 readme = "README.md"
@@ -24,9 +24,9 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Documentation = "https://github.com/OoriData/Utiloori#readme"
-Issues = "https://github.com/OoriData/Utiloori/issues"
-Source = "https://github.com/OoriData/Utiloori"
+Documentation = "https://github.com/OoriData/utiloori#readme"
+Issues = "https://github.com/OoriData/utiloori/issues"
+Source = "https://github.com/OoriData/utiloori"
 
 [tool.hatch.version]
 path = "pylib/__about__.py"
