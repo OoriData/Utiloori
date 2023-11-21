@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # utiloori/ansi_color.py
 
-def ansi_color(text: str, font_color: str = 'red', bg_color: str | None = None) -> str:
+def ansi_color(text: str, font_color: str = 'white', bg_color: str | None = None) -> str:
     '''
     Wraps text in ANSI color codes (and terminators) for printing colored text to console
 
