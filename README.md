@@ -9,7 +9,10 @@
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/utiloori.svg)](https://pypi.org/project/utiloori)
 
 ## print ansi colors in terminal
-`from utiloori.ansi_color import ansi_color` 
+Wraps text in ANSI color codes (and terminators) for printing colored text to console.
+
+Some terminals, notably VSCode's, try to be clever about not displaying unreadable text; they might override the font color you specify if you specify a background color that is too similar to the font color. For example, if you specify a black font color on a red background, VSCode will override the font color to white.
+
 ### colors
 the following "standard" ansi colors are supported:
 - black
@@ -22,14 +25,22 @@ the following "standard" ansi colors are supported:
 - white
 
 ### usage
-print string with green text:
+`from utiloori.ansi_color import ansi_color`
+
+print string with green font:
 ```python
-green_string = ansi_color('foo', 'green')
+green_string = ansi_color('lorem', 'green')
 print(green_string)
 ```
 
-print string with red text on a blue background:
+print string with purple background (with default, white font):
 ```python
-red_on_blue_string = ansi_color('bar', 'red', 'blue')
+purple_bg_string = ansi_color('ipsum', bg_color='purple')
+print(purple_bg_string)
+```
+
+print string with red font on a blue background:
+```python
+red_on_blue_string = ansi_color('dolor', 'red', 'blue')
 print(red_on_blue_string)
 ```
