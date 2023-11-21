@@ -8,7 +8,7 @@
 [![PyPI - Version](https://img.shields.io/pypi/v/utiloori.svg)](https://pypi.org/project/utiloori)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/utiloori.svg)](https://pypi.org/project/utiloori)
 
-## terminal ansi colors
+## print ansi colors in terminal
 `from utiloori.ansi_color import ansi_color` 
 ### colors
 the following "standard" ansi colors are supported:
