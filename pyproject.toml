@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "utiloori"
 dynamic = ["version"]
-description = "Oori's generic python toolkit. Nothing much to see here"
+description = "oori's miscellaneous python toolkit"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "Apache-2.0"

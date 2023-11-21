@@ -1,3 +1,3 @@
 # SPDX-FileCopyrightText: 2023-present Oori Data <info@oori.dev>
-# SPDX-License-Identifier: UNLICENSED
+# SPDX-License-Identifier: Apache-2.0
 # utiloori

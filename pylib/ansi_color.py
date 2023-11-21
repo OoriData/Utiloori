@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2023-present Oori Data <info@oori.dev>
-# SPDX-License-Identifier: UNLICENSED
+# SPDX-License-Identifier: Apache-2.0
 # utiloori/ansi_color.py
 
 def ansi_color(text: str, font_color: str = 'red', bg_color: str | None = None) -> str:
@@ -41,11 +41,11 @@ def ansi_color(text: str, font_color: str = 'red', bg_color: str | None = None) 
             f'\033[{font_color_codes[font_color]}m'  # Set font color
             f'\033[{bg_color_codes[bg_color]}m'      # Set background color
             f'{text}'                                # insert text
-            f'\033[0m'                               # Reset font and background colors
+            '\033[0m'                                # Reset font and background colors
         )
     else:
         return (
             f'\033[{font_color_codes[font_color]}m'  # Set font color
             f'{text}'                                # insert text
-            f'\033[0m'                               # Reset font and background colors
+            '\033[0m'                                # Reset font and background colors
         )
