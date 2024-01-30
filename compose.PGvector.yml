@@ -12,13 +12,21 @@ services:
       POSTGRES_USER: oori
       POSTGRES_PASSWORD: example
       POSTGRES_DB: PGv
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+      # PGDATA: /var/lib/postgresql/data/some_name/
+    command: ["postgres", "-c", "config_file=/etc/postgresql.conf"]
     ports:
-      - 5432:5432  # {in-host (external)}:{in-container (internal)}
+      - "5432:5432"
     volumes:
-      - ./pg_hba.conf:/var/lib/postgresql/pg_hba.conf
+      - ./pg_configs/postgresql.conf:/etc/postgresql.conf
+      # Persist data even if container is destroyed
+      - db_data:/var/lib/postgresql/data
 
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080  # {in-host (external)}:{in-container (internal)}
+
+volumes:
+  db_data:
