@@ -8,7 +8,11 @@
 [![PyPI - Version](https://img.shields.io/pypi/v/utiloori.svg)](https://pypi.org/project/utiloori)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/utiloori.svg)](https://pypi.org/project/utiloori)
 
-## print ansi colors in terminal
+Table of contents:
+- [print ansi colors in terminal](#1)
+- [Spin up a PostgreSQL Vector database using Docker with a custom config](#2)
+
+## print ansi colors in terminal {#1}
 Wraps text in ANSI color codes (and terminators) for printing colored text to console.
 
 Some terminals, notably VSCode's, try to be clever about not displaying unreadable text; they might override the font color you specify if you specify a background color that is too similar to the font color. For example, if you specify a black font color on a red background, VSCode will override the font color to white.
@@ -44,3 +48,41 @@ print string with red font on a blue background:
 red_on_blue_string = ansi_color('dolor', 'red', 'blue')
 print(red_on_blue_string)
 ```
+
+# Spin up a PostgreSQL vector database using Docker with a custom config {#2}
+### Locally
+1. Clone the repository.
+2. From the root, run:
+```sh
+docker compose up -f compose.PGvector.yml -d
+```
+3. Now you have PGv database running on `localhost:5432` and an [adminer](https://www.adminer.org/) interface on `localhost:8080`
+
+### On a remote host
+1. Clone the repository on your local machine.
+2. Copy `pg_configs/postgresql.conf` to `/etc/postgresql.conf` (or another absolute path) on the remote host.
+   - If you choose another absolute path, make sure to modify `compose.PGv_remote.yml` as follows:
+  ```yml
+    volumes:
+      # This is in the remote itself, not in the repo. See pg_configs for references
+      - <custom_path_here>:/etc/postgresql.conf
+  ```
+3. Set up a [remote docker context](https://docs.docker.com/engine/context/working-with-contexts/) and switch to it.
+```sh
+docker context create <context_name> --docker host=ssh://<user>@<remote_host_ip>
+
+docker context use <context_name>
+```
+1. Run:
+```sh
+docker compose up -f compose.PGv_remote.yml
+```
+1. Now you have PGv database running on `<remote_host_ip>:5432` and an [adminer](https://www.adminer.org/) interface on `<remote_host_ip>:8080`
+
+__Configurable__:
+- All the options in `pg_configs/postgresql.conf`, by default `max_connections` to 200  and `shared_buffers` to 128mb
+- Inside of `compose.PGvector.yml` or `compose.PGv_remote.yml`
+  - `POSTGRES_USER`: The username used to connect to the database.
+  - `POSTGRES_PASSWORD`: The password used to connect to the database.
+  - `POSTGRES_DB`: The name of the database created.
+  - Ports can be configured inside `compose.PGvector.yml`
