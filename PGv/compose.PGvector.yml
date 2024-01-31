@@ -18,7 +18,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./pg_configs/postgresql.conf:/etc/postgresql.conf
+      - ./postgresql.conf:/etc/postgresql.conf
       # Persist data even if container is destroyed
       - db_data:/var/lib/postgresql/data
 
