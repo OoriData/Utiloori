@@ -58,8 +58,9 @@ print(red_on_blue_string)
 1. Clone the repository.
 2. From the root, run:
 ```sh
-docker compose up -f compose.PGvector.yml -d
+docker compose -f compose.PGvector.yml up -d --build
 ```
+(you can remove `--build` if you don't want to rebuild the image)
 3. Now you have PGv database running on `localhost:5432` and an [adminer](https://www.adminer.org/) interface on `localhost:8080`
 
 ### On a remote host
