@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2023-present Oori Data <info@oori.dev>
 # SPDX-License-Identifier: Apache-2.0
-# utiloori/ansi_color.py
+# utiloori.pprint_chatlog
 
 from utiloori.ansi_color import ansi_color
 

@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2023-present Oori Data <info@oori.dev>
 # SPDX-License-Identifier: Apache-2.0
-# utiloori/ansi_color.py
+# utiloori.ansi_color
 
 def ansi_color(text: str, font_color: str = 'white', bg_color: str | None = None) -> str:
     '''
