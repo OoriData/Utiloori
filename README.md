@@ -1,4 +1,4 @@
-<h1>Utiloori - oori's miscellaneous python toolkit</h1>
+<h1>Utiloori - oori's miscellaneous toolkit</h1>
 
 <table><tr>
   <td><a href="https://oori.dev/"><img src="https://www.oori.dev/assets/branding/oori_Logo_FullColor.png" width="64" /></a></td>
