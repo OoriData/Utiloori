@@ -15,6 +15,7 @@ Table of contents:
 - [Spin up a PostgreSQL vector database using Docker with a custom config](#spin-up-a-postgresql-vector-database-using-docker-with-a-custom-config)
   - [Locally](#locally)
   - [On a remote host](#on-a-remote-host)
+- [Spin up a Dozzle docker log viewer on sofola with remote\_hosts](#spin-up-a-dozzle-docker-log-viewer-on-sofola-with-remote_hosts)
 
 ## print ansi colors in terminal
 Wraps text in ANSI color codes (and terminators) for printing colored text to console.
@@ -91,3 +92,16 @@ __Configurable__:
   - `POSTGRES_PASSWORD`: The password used to connect to the database.
   - `POSTGRES_DB`: The name of the database created.
   - Ports can be configured inside `compose.PGvector.yml`
+
+## Spin up a Dozzle docker log viewer on sofola with remote_hosts
+- [Dozzle](https://dozzle.dev) is a lightweight, web-based Docker log viewer that provides real-time monitoring and easy troubleshooting.
+- To start, run the following using a remote docker context:
+```sh
+cd dozzle
+docker compose -f compose.dozzle.yml up -d
+```
+
+- Current configuration options:
+  - `DOZZLE_REMOTE_HOST`: Dozzle supports connecting to multiple remote hosts via tcp:// using TLS and non-secured connections. Set to OoriChat droplet currently.
+  - `DOZZLE_ENABLE_ACTIONS`: Allows restarting and stopping docker containers using the UI.
+  - `DOZZLE_AUTH_PROVIDER`: set to simple to provide basic authentication. Creds are stored on sofola at `/etc/dozzle/data/users.yml`. A new password can be generated using `echo -n 'secret-password' | shasum -a 256` where 'secret-password' is the desired password.

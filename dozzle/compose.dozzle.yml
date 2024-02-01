@@ -1,0 +1,18 @@
+# Dozzle configuration for sofola
+# Dozzle is a docker log viewer
+# export OORICHAT_IP_ADDRESS in your shell prior to running docker compose up, should be the IP address of the droplet
+# https://dozzle.dev/guide/getting-started
+
+version: "3"
+services:
+  dozzle:
+    image: amir20/dozzle:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/dozzle/data:/data
+    ports:
+      - 9000:8080
+    environment:
+      DOZZLE_REMOTE_HOST: tcp://${OORICHAT_IP_ADDRESS}:2375|oorichat_droplet
+      DOZZLE_ENABLE_ACTIONS: true
+      DOZZLE_AUTH_PROVIDER: simple
