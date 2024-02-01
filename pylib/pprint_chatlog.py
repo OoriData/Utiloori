@@ -5,7 +5,7 @@
 from utiloori.ansi_color import ansi_color
 
 def pprint_chatlog(chatlog):
-    ''' Format chatlog for human/LLM readability '''
+    ''' Format ChatML style chatlog for human readability '''
     formatted_chatlog = ansi_color('  START OF CHATLOG  '.center(60, '┄'), 'purple')
 
     for message in chatlog:
