@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # utiloori.calendar
 
-from datetime import time, datetime, timedelta
+from datetime import time, datetime, timezone, timedelta
 
 
 def time_plus_delta(t: time, tdelt: timedelta) -> time:
