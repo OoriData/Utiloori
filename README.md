@@ -60,7 +60,7 @@ print(red_on_blue_string)
 1. For security, we will load in secrets using 1password.
 2. See the [setup instructions](https://github.com/OoriData/sysops/wiki/Developer-tips-%26-tricks#using-1password-environments) if you do not have 1password CLI. 
 3. You can now prefix commands with `op run --env-file=op.env -- <your command>` and have the secrets loaded automatically.
-NOTE: you can add the `--no-masking` flag before `--` to 
+NOTE: you can add the `--no-masking` flag before `--` to avoid 1password masking terminal.
 
 ### Locally
 1. Clone the repository.
