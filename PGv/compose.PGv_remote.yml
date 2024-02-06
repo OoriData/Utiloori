@@ -12,9 +12,7 @@ services:
       POSTGRES_USER: ${PG_USER}
       POSTGRES_PASSWORD: ${PG_PASSWORD}
       POSTGRES_DB: PGv
-      POSTGRES_HOST_AUTH_METHOD: "trust"
-      # PGDATA: /var/lib/postgresql/data/some_name/
-    command: ["postgres", "-c", "config_file=/etc/postgresql.conf"]
+      PGDATA: /var/lib/postgresql/data
     ports:
       - "5432:5432"
     volumes:
@@ -22,9 +20,12 @@ services:
       - /etc/postgresql.conf:/etc/postgresql.conf
       # Persist data even if container is destroyed
       - db_data:/var/lib/postgresql/data
+    command: ["postgres", "-c", "config_file=/etc/postgresql.conf"]
 
   adminer:
     image: adminer
+    depends_on:
+      - db
     restart: always
     ports:
       - 8080:8080  # {in-host (external)}:{in-container (internal)}

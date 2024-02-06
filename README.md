@@ -67,7 +67,7 @@ NOTE: you can add the `--no-masking` flag before `--` to
 2. Configure needed env variables, `$PG_USER` and `$PG_HOST`, either using your own or `op.env`, detailed below.
 3. From the root, run:
 ```sh
-op run --env-file=op.env -- docker compose -f PGv/compose.PGvector.yml up -d --build
+op run --env-file op.env -- docker compose -f PGv/compose.PGvector.yml up -d --build
 ```
 (you can remove `--build` if you don't want to rebuild the image)
 1. Now you have PGv database running on `localhost:5432` and an [adminer](https://www.adminer.org/) interface on `localhost:8080`
@@ -89,7 +89,7 @@ docker context use <context_name>
 ```
 1. Run:
 ```sh
-op run --env-file=op.env -- docker compose -f PGv/compose.PGv_remote.yml up -d --build
+op run --env-file op.env -- docker compose -f PGv/compose.PGv_remote.yml up -d --build
 ```
 1. Now you have PGv database running on `<remote_host_ip>:5432` and an [adminer](https://www.adminer.org/) interface on `<remote_host_ip>:8080`
 
