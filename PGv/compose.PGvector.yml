@@ -9,8 +9,8 @@ services:
     image: ankane/pgvector
     # restart: always
     environment:
-      POSTGRES_USER: oori
-      POSTGRES_PASSWORD: example
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
       POSTGRES_DB: PGv
       POSTGRES_HOST_AUTH_METHOD: "trust"
       # PGDATA: /var/lib/postgresql/data/some_name/

@@ -8,11 +8,12 @@
 [![PyPI - Version](https://img.shields.io/pypi/v/utiloori.svg)](https://pypi.org/project/utiloori)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/utiloori.svg)](https://pypi.org/project/utiloori)
 
-Table of contents:
+__Table of contents:__
 - [print ansi colors in terminal](#print-ansi-colors-in-terminal)
   - [colors](#colors)
   - [usage](#usage)
 - [Spin up a PostgreSQL vector database using Docker with a custom config](#spin-up-a-postgresql-vector-database-using-docker-with-a-custom-config)
+  - [Env variables](#env-variables)
   - [Locally](#locally)
   - [On a remote host](#on-a-remote-host)
 - [Spin up a Dozzle docker log viewer on sofola with remote\_hosts](#spin-up-a-dozzle-docker-log-viewer-on-sofola-with-remote_hosts)
@@ -55,14 +56,21 @@ print(red_on_blue_string)
 ```
 
 ## Spin up a PostgreSQL vector database using Docker with a custom config
+### Env variables
+1. For security, we will load in secrets using 1password.
+2. See the [setup instructions](https://github.com/OoriData/sysops/wiki/Developer-tips-%26-tricks#using-1password-environments) if you do not have 1password CLI. 
+3. You can now prefix commands with `op run --env-file=op.env -- <your command>` and have the secrets loaded automatically.
+NOTE: you can add the `--no-masking` flag before `--` to 
+
 ### Locally
 1. Clone the repository.
-2. From the root, run:
+2. Configure needed env variables, `$PG_USER` and `$PG_HOST`, either using your own or `op.env`, detailed below.
+3. From the root, run:
 ```sh
-docker compose -f PGv/compose.PGvector.yml up -d --build
+op run --env-file=op.env -- docker compose -f PGv/compose.PGvector.yml up -d --build
 ```
 (you can remove `--build` if you don't want to rebuild the image)
-3. Now you have PGv database running on `localhost:5432` and an [adminer](https://www.adminer.org/) interface on `localhost:8080`
+1. Now you have PGv database running on `localhost:5432` and an [adminer](https://www.adminer.org/) interface on `localhost:8080`
 
 ### On a remote host
 1. Clone the repository on your local machine.
@@ -81,7 +89,7 @@ docker context use <context_name>
 ```
 1. Run:
 ```sh
-docker compose up -f compose.PGv_remote.yml 
+op run --env-file=op.env -- docker compose -f PGv/compose.PGv_remote.yml up -d --build
 ```
 1. Now you have PGv database running on `<remote_host_ip>:5432` and an [adminer](https://www.adminer.org/) interface on `<remote_host_ip>:8080`
 
