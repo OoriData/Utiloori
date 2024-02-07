@@ -16,7 +16,6 @@ __Table of contents:__
   - [Env variables](#env-variables)
   - [Locally](#locally)
   - [On a remote host](#on-a-remote-host)
-- [Spin up a Dozzle docker log viewer on sofola with remote\_hosts](#spin-up-a-dozzle-docker-log-viewer-on-sofola-with-remote_hosts)
 
 ## print ansi colors in terminal
 Wraps text in ANSI color codes (and terminators) for printing colored text to console.
@@ -71,6 +70,9 @@ op run --env-file op.env -- docker compose -f PGv/compose.PGvector.yml up -d --b
 ```
 (you can remove `--build` if you don't want to rebuild the image)
 5. Now you have PGv database running on `localhost:5432` and an [adminer](https://www.adminer.org/) interface on `localhost:8080`
+
+### On a remote host
+- See [Sofola Diary](https://github.com/OoriData/sysops/wiki/Sofola:-Diary#february-2024) entry.
 
 __Configurable__:
 - All the options in `pg_configs/postgresql.conf`, by default `max_connections` to 200  and `shared_buffers` to 128mb
