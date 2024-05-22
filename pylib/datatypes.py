@@ -11,4 +11,3 @@ def validate_uuid(uuid_str):
         return True
     except ValueError:
         return False
-
