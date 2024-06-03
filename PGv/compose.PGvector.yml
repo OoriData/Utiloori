@@ -1,12 +1,12 @@
 # compose.sofolaPGv.yml
 
 # Use postgres/example user/password credentials
-version: '3.1'
+# version: '3.1'
 
 services:
 
   db:
-    image: ankane/pgvector
+    image: pgvector/pgvector:0.7.0-pg16
     # restart: always
     environment:
       POSTGRES_USER: ${PG_USER}
