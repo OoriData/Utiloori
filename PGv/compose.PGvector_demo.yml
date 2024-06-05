@@ -1,4 +1,5 @@
 # compose.sofolaPGv.yml
+# run from this directory with `docker compose -f compose.PGvector_demo.yml -p demo_database up`
 
 # Use postgres/example user/password credentials
 version: '3.1'
@@ -7,15 +8,16 @@ services:
   db:
     image: ankane/pgvector
     # restart: always
+    container_name: demo_db
     environment:
-      POSTGRES_USER: ${PG_USER}
-      POSTGRES_PASSWORD: ${PG_PASSWORD}
-      POSTGRES_DB: PGv
+      POSTGRES_USER: tester
+      POSTGRES_PASSWORD: demodemodemo
+      POSTGRES_DB: demo_db
       POSTGRES_HOST_AUTH_METHOD: "trust"
       # PGDATA: /var/lib/postgresql/data/some_name/
     command: ["postgres", "-c", "config_file=/etc/postgresql.conf"]
     ports:
-      - "5432:5432"
+      - "8686:5432"
     volumes:
       - ./postgresql.conf:/etc/postgresql.conf
       # Persist data even if container is destroyed
@@ -23,9 +25,10 @@ services:
 
   adminer:
     image: adminer
+    container_name: demo_adminer
     restart: always
     ports:
-      - 8080:8080  # {in-host (external)}:{in-container (internal)}
+      - 8787:8080  # {in-host (external)}:{in-container (internal)}
 
 volumes:
   db_data:
