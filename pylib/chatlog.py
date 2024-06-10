@@ -7,7 +7,7 @@ from utiloori.ansi_color import ansi_color
 
 def chatmsg_trim(msg):
     '''
-    Trim a message from chatlog to only fields defined in HuggingFace Chat Template format
+    Trim a message from chatlog to only fields defined in the HuggingFace Chat Template format
     https://huggingface.co/blog/chat-templates
 
     Picking HF because they at least seem committed to the idea of a standard format, and (sorta) documenting it
