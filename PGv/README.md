@@ -8,10 +8,10 @@ NOTE: you can add the `--no-masking` flag before `--` to avoid 1password masking
 
 ## Locally
 1. Clone the repository.
-2. Configure needed env variables, `$PG_USER` and `$PG_HOST`, either using your own or `op.env`, detailed below.
+2. Configure needed env variables, `$POSTGRES_USER` and `$POSTGRES_HOST`, either using your own or `op.env`, detailed below.
 3. From the root, run:
 ```sh
-op run --env-file op.env -- docker compose -f PGv/compose.PGvector.yml up -d --build
+op run --env-file op.env -- docker compose -f compose.PGvector.yml up -d --build
 ```
 (you can remove `--build` if you don't want to rebuild the image)
 5. Now you have PGv database running on `localhost:5432` and an [adminer](https://www.adminer.org/) interface on `localhost:8080`
@@ -21,7 +21,7 @@ op run --env-file op.env -- docker compose -f PGv/compose.PGvector.yml up -d --b
 As above, except for the launch command, for which instead use:
 
 ```sh
-op run --env-file PGv/op.env -- docker compose -f PGv/compose.PGv_remote.yml up -d --build
+op run --env-file op.env -- docker compose -f compose.PGv_remote.yml up -d --build
 ```
 
 # Configuration
