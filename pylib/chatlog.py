@@ -17,7 +17,7 @@ def chatmsg_trim(msg):
     return new_msg
 
 
-def pformat(chatlog, prefix='💬🟢\n', suffix='💬🔴'):
+def pformat(chatlog, prefix='💬🟢\n', suffix='\n💬🔴'):
     ''' Format chatlog for human/LLM readability '''
     chunks = [prefix]
     for message in chatlog:

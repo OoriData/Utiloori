@@ -5,12 +5,12 @@
 
 services:
   db:
-    image: pgvector/pgvector:0.7.0-pg16
+    image: pgvector/pgvector:0.7.3-pg16
     # restart: always
     environment:
-      POSTGRES_USER: ${PG_USER}
-      POSTGRES_PASSWORD: ${PG_PASSWORD}
-      POSTGRES_DB: PGv
+      POSTGRES_USER: ${POSTGRES_USER}  # ignored except on the first run
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}  # ignored except on the first run
+      POSTGRES_DB: PGv  # ignored except on the first run
       POSTGRES_HOST_AUTH_METHOD: "trust"
       # PGDATA: /var/lib/postgresql/data/some_name/
     command: ["postgres", "-c", "config_file=/etc/postgresql.conf"]
@@ -19,7 +19,7 @@ services:
     volumes:
       - ./postgresql.conf:/etc/postgresql.conf
       # Persist data even if container is destroyed
-      - db_data:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql/data
 
   adminer:
     image: adminer
@@ -28,4 +28,4 @@ services:
       - 8080:8080  # {in-host (external)}:{in-container (internal)}
 
 volumes:
-  db_data:
+  pg_data:
