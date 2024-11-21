@@ -2,23 +2,19 @@
 # SPDX-License-Identifier: Apache-2.0
 # utiloori.pg
 '''
-Tools for PostgreSQL
+Assorted tools for asyncpg (PostgreSQL); managing connections for durable query sequences
 '''
-from typing import AsyncIterator, TypeVar, Any
-# from itertools import islice
-import uuid
-# import asyncio
-
-
-from typing import AsyncIterator, TypeVar, Any, Optional
 import uuid
 import asyncio
+from typing import AsyncIterator, TypeVar, Any
+
 from asyncpg.exceptions import ConnectionDoesNotExistError, InterfaceError
 
 T = TypeVar('T')
 
+# XXX: Should we subclass this from an asyncpg Exception?
 class ConnectionLostError(Exception):
-    """Raised when the connection is lost and we need to retry from last known position"""
+    '''Raised when the connection is lost and we need to retry from last known position'''
     pass
 
 async def resilient_prepared_fetch(
@@ -30,7 +26,7 @@ async def resilient_prepared_fetch(
     retry_delay: float = 1.0,
     position: int = 0
 ) -> AsyncIterator[tuple[list[Any], int]]:
-    """
+    '''
     Fetch results from PostgreSQL in batches using prepared statements with retry logic.
     
     Args:
@@ -41,21 +37,21 @@ async def resilient_prepared_fetch(
         max_retries: Maximum number of retry attempts per batch
         retry_delay: Delay between retries in seconds
         position: Starting position for OFFSET
-    """
+    '''
     current_position = position
     retries = 0
     
     # Add OFFSET/LIMIT to the original query
-    paginated_query = f"""
+    paginated_query = f'''
         {query}
         OFFSET $1 LIMIT $2
-    """
+    '''
     
     while True:
         try:
             async with pool.acquire() as conn:
                 # Create a unique statement name for this batch
-                stmt_name = f"__asyncpg_{uuid.uuid4()}__"
+                stmt_name = f'__asyncpg_{uuid.uuid4()}__'
                 
                 async with conn.transaction(readonly=True):
                     # Prepare the statement
@@ -79,12 +75,13 @@ async def resilient_prepared_fetch(
             retries += 1
             if retries > max_retries:
                 raise ConnectionLostError(
-                    f"Failed to maintain connection after {max_retries} retries. "
-                    f"Last successful position: {current_position}"
+                    f'Failed to maintain connection after {max_retries} retries. '
+                    f'Last successful position: {current_position}'
                 ) from e
                 
             await asyncio.sleep(retry_delay)
             continue
+
 
 async def process_results_prepared(
     pool,
@@ -93,7 +90,7 @@ async def process_results_prepared(
     batch_size: int = 100,
     checkpoint_callback = None
 ):
-    """
+    '''
     Process results using prepared statements with checkpointing support.
     
     Args:
@@ -102,7 +99,7 @@ async def process_results_prepared(
         params: Query parameters (optional)
         batch_size: Number of records to fetch per batch
         checkpoint_callback: Optional async callback function(position) to save progress
-    """
+    '''
     try:
         async for batch, position in resilient_prepared_fetch(
             pool,
@@ -128,7 +125,7 @@ async def process_results_prepared(
 #     query: str,
 #     batch_size: int = 100
 # ) -> AsyncIterator[list[Any]]:
-#     """
+#     '''
 #     Fetch results from PostgreSQL in batches using a named cursor.
     
 #     Args:
@@ -142,18 +139,18 @@ async def process_results_prepared(
 #     # Example usage:
 #     ```
 #     async def process_results(conn):
-#         query = "SELECT * FROM your_table"
+#         query = 'SELECT * FROM your_table'
         
 #         async for batch in batch_fetch_cursor(conn, query, batch_size=100):
 #             for record in batch:
 #                 yield record  # Process each individual record
 #     ```
-#     """
+#     '''
 #     # Generate a unique cursor name
-#     cursor_name = f"batch_cursor_{uuid.uuid4()}"
+#     cursor_name = f'batch_cursor_{uuid.uuid4()}'
     
 #     # Declare the cursor
-#     declare_query = f"DECLARE {cursor_name} CURSOR FOR {query}"
+#     declare_query = f'DECLARE {cursor_name} CURSOR FOR {query}'
     
 #     try:
 #         async with conn.transaction(readonly=True):
@@ -162,7 +159,7 @@ async def process_results_prepared(
             
 #             while True:
 #                 # Fetch a batch of results
-#                 fetch_query = f"FETCH FORWARD {batch_size} FROM {cursor_name}"
+#                 fetch_query = f'FETCH FORWARD {batch_size} FROM {cursor_name}'
 #                 batch = await conn.fetch(fetch_query)
                 
 #                 if not batch:
@@ -173,7 +170,7 @@ async def process_results_prepared(
 #     finally:
 #         # Clean up the cursor
 #         try:
-#             await conn.execute(f"CLOSE {cursor_name}")
+#             await conn.execute(f'CLOSE {cursor_name}')
 #         except Exception:
 #             # Handle case where connection is already closed
 #             pass
@@ -186,7 +183,7 @@ async def process_results_prepared(
 #     params: tuple = None,
 #     batch_size: int = 100
 # ) -> AsyncIterator[list[Any]]:
-#     """
+#     '''
 #     Fetch results from PostgreSQL in batches using a prepared statement.
     
 #     Args:
@@ -201,15 +198,15 @@ async def process_results_prepared(
 #     # Example usage:
 #     ```
 #     async def process_results(conn):
-#         query = "SELECT * FROM your_table"
+#         query = 'SELECT * FROM your_table'
         
 #         async for batch in batch_fetch_prepared(conn, query, batch_size=100):
 #             for record in batch:
 #                 yield record  # Process each individual record
 #     ```
-#     """
+#     '''
 #     # Workaround for issue encountered with Supabase; needed explicit prepared statements with forced unique names
-#     stmt_name = f"__asyncpg_{uuid.uuid4()}__"
+#     stmt_name = f'__asyncpg_{uuid.uuid4()}__'
     
 #     try:
 #         async with conn.transaction(readonly=True):
